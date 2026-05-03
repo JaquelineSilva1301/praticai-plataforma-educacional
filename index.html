@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz </title>
+  <style>
+  body { 
+    font-family: Arial; 
+    padding: 20px; 
+    max-width: 800px; 
+    margin: auto; 
+    background: lab(93.69% -27.71 2.04); 
+  }
+
+  .quiz-box { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 5px #ccc; 
+  }
+
+ h1 {
+  text-align: center;
+  margin: 5px 0 5px 0;
+}
+
+img {
+  display: block;
+  margin: 0 auto 5px auto;
+}
+
+
+
+  button { 
+    padding: 10px 20px; 
+    margin: 10px 5px; 
+    border: none; 
+    border-radius: 5px; 
+    background: #007BFF; 
+    color: white; 
+    cursor: pointer; 
+  }
+
+  button:hover { 
+    background: #0056b3; 
+  }
+
+  .result { 
+    font-weight: bold; 
+    margin-top: 10px; 
+  }
+</style>
+
+</head>
+<body>
+   <div class="quiz-box">
+   <img src="logo.png.jpeg" 
+     style="display:block; margin: 0 auto 15px; max-width: 350px;">
+
+<img src="aivy.jpn.jpg" 
+     style="display:block; margin: 0 auto 15px; max-width: 200px;">
+<h1 id="tituloPagina">Quiz Educativos</h1>
+
+<!-- MENU PRINCIPAL -->
+ <div id="menuPrincipal" style="display: block;">
+
+  <h2>Escolha uma opção:</h2>
+
+  <button onclick="abrirQuizEscolar()">📚 Quiz Escolar</button>
+  <button onclick="abrirQuizSaude()">💚 Quiz Saúde</button>
+  <button onclick="abrirQuizMeioAmbiente()">🌿 Quiz Meio Ambiente</button>
+  <button onclick="abrirDicas()">✨ Dicas + FalaSaúde</button>
+</div>
+
+
+<!-- MENU DE MATÉRIAS (ESCOLAR) -->
+<div id="menuMaterias" style="display: none;">
+  <h2>Escolha a matéria:</h2>
+
+  <button onclick="iniciarQuiz('portugues')">Português</button>
+  <button onclick="iniciarQuiz('matematica')">Matemática</button>
+  <button onclick="iniciarQuiz('ingles')">Inglês</button>
+
+  <br><br>
+  <button onclick="voltarAoMenu()">🔙 Voltar</button>
+</div>
+
+    <!-- ÁREA DO QUIZ -->
+<div id="quiz" class="quiz-conteudo" style="display:none;">
+  <p id="pergunta"></p>
+  <div id="opcoes"></div>
+  <p class="result" id="resultado"></p>
+
+  <button onclick="perguntaAnterior()">⬅ Pergunta Anterior</button>
+  <button onclick="proximaPergunta()">Próxima ➡</button>
+
+  <br><br>
+  <button onclick="voltarAoMenu()">🔙 Voltar ao Menu</button>
+</div>
+
+
+<!-- ÁREA DE DICAS -->
+<div id="dicas" style="display: none;">
+  <h2>✨ Dicas Essenciais da Aivy</h2>
+  <p>💧 Beba pelo menos 2 litros de água por dia.</p>
+  <p>💚 Cuide da sua saúde mental.</p>
+  <p>🌱 Preserve o meio ambiente.</p>
+
+  <p>
+    Quer receber mais dicas e conteúdos exclusivos?
+    Envie <strong>"Oi"</strong> no WhatsApp e fale com a Aivy!
+  </p>
+
+  <a href="SEU_LINK_DO_WHATSAPP_AQUI" target="_blank">
+    📲 Acessar Canal FalaSaúde
+  </a>
+
+  <br><br>
+<button onclick="voltarAoMenu()">🔙 Voltar</button>
+</div>
+
+  <script>
+
+    const quizzes = {
+      portugues: [
+        { pergunta: "Qual é a forma correta?", opcoes: ["Há muitos anos atrás", "Há muitos anos", "À muitos anos atrás."], correta: 1 },
+        { pergunta: "Qual a função do verbo na frase: 'Ele *canta* bem.'?", opcoes: ["Verbo de ligação", "Verbo intransitivo", "Verbo transitivo direto"], correta: 1 },
+       { pergunta: "Qual é a forma correta da palavra?", opcoes: ["Excessão", "Esceção", "Exceção"], correta: 2 },
+       { pergunta: "Qual frase está escrita corretamente?", opcoes: ["Havia muitos alunos na sala.", "Haviam muitos alunos na sala.", "Houveram provas difíceis."], correta: 0 },
+        { pergunta: "Qual frase está correta?", opcoes: ["Fazem dois anos que ela viajou.", "Faz dois anos que ela viajou.", "Fazem dois anos que ela viajou para fora."], correta: 1 },
+        { pergunta: " Qual palavra está acentuada corretamente?", opcoes: ["Heroi", "Pôde", "Voce"], correta: 1 },
+        { pergunta: "O que significa a expressão: “Maria passou com louvor”?", opcoes: ["Ela passou com muita dificuldade.", "Ela passou, mas por pouco.", "Ela teve ótimo desempenho."], correta: 2 },
+        { pergunta: "Qual conectivo melhor une as frases: “Ela estudou muito. Foi reprovada.”", opcoes: ["Portanto", "Contudo", "Assim"], correta: 1 },
+        { pergunta: "Qual frase está pontuada corretamente?", opcoes: ["Ana trouxe: livros, lápis, caderno e borracha.", "Ana trouxe livros lápis caderno e borracha.", "Ana trouxe livros lápis, caderno e borracha."], correta: 0 },
+        { pergunta: "Qual palavra é um advérbio?", opcoes: ["Alegra", "Ontem", "Rápido"], correta: 1 }
+    
+      ],
+      
+      matematica: [
+        { pergunta: "Quanto é 7 x 8?", opcoes: ["54", "56", "58", "52"], correta: 1 },
+        { pergunta: "Qual é a fração equivalente a 1/2?", opcoes: ["2/4", "3/5", "4/6", "3/2"], correta: 0 },
+        {pergunta: "Quanto é 7 + 5?", opcoes: ["12", "13", "11"], correta: 0},
+        {pergunta: "Qual é o resultado de 9 x 6?", opcoes: ["56", "64", "54", "62"], correta: 2 },
+        {pergunta: "Quanto é 81 dividido por 9?", opcoes: ["7", "6", "9", "8"], correta: 3 },
+        {pergunta: "Qual o valor de 3²?", opcoes: ["6", "9", "12", "3"], correta: 1 },
+        {pergunta: "Qual é o resultado de 1/2 + 1/4?", opcoes: ["3/4", "2/4", "1/3", "2/6"], correta: 0 },
+        {pergunta: "40% de 200 é igual a:", opcoes: ["60", "40", "100", "80"], correta: 3},
+        {pergunta: "Se 3 canetas custam R$6,00, quanto custam 5 canetas?", opcoes: ["R$9,00", "R$10,00", "R$8,00", "R$12,00"], correta: 1 },
+        {pergunta: "Um produto com 25% de desconto, que custava R$120, agora custa:", opcoes: ["R$90,00", "R$100,00", "R$95,00", "R$120,00"], correta: 0 }
+
+      ],
+      ingles: [
+       {pergunta: "Como se diz 'rápido' em Inglês?", opcoes: ["Slow", "Soft", "Fast"], correta: 2 },
+       {pergunta: "Complete: She ___ to school every day.", opcoes: ["go", "goes", "going"], correta: 1 },
+       {pergunta: "Como se diz'comida' em Inglês?", opcoes: ["Food", "Fool", "Foot"], correta: 0 },
+       {pergunta: "Qual o passado de 'eat'?" , opcoes: ["Eated", "Eaten", "Eats"], correta: 1 },
+       {pergunta: "Que horas são? 7:30", opcoes: ["Seven thirty", "Seven thirteen", "Six forty"], correta: 0},
+       {pergunta: "Escolha a opção correta: 'They ___ happy.'", opcoes: ["is", "am", "are"], correta: 2 },
+       {pergunta: "Qual das opções é uma fruta?", opcoes: ["Potato", "Banana", "Carrot"], correta: 1 },
+       {pergunta: "Como diz 'livro' em Inglês?", opcoes: ["Library", "Book", "Notebook"], correta: 1 },
+       {pergunta: "Traduza: 'Eu gosto de estudar inglês.'", opcoes: ["I like to study English.", "I study English every day.", "I have English at school."], correta: 0},
+       {pergunta: "Qual a sentença correta?", opcoes: ["He don't like pizza.", "He doesn't likes pizza.", "He doesn't like pizza." ], correta: 2 }
+
+      ],
+      saude: [
+    {pergunta: "Quantos litros de água é recomendado por dia?", opcoes: ["1 litro", "2 litros", "5 litros"], correta: 1 },
+    {pergunta: "Qual vitamina é obtida através do sol?", opcoes: ["Vitamina A", "Vitamina C", "Vitamina D", "Vitamina B12"], resposta: 2 },
+    {pergunta: "Qual alimento é mais saudável?", opcoes: ["Refrigerante", "Batata frita", "Maçã", "Bala"], resposta: 2 },
+    {pergunta: "Qual hábito ajuda a prevenir doenças?", opcoes: ["Lavar as mãos", "Não tomar banho", "Compartilhar copos", "Não escovar os dentes"] , resposta: 0 },
+    {pergunta: "Qual desses alimentos é rico em vitamina C?", opcoes: ["Laranja", "Arroz", "Macarrão", "Carne"] , resposta: 0 } ,
+    {pergunta: "Praticar exercícios físicos ajuda a:", opcoes: ["Melhorar a saúde", "Cansar o corpo", "Ficar doente", "Perder memória"], resposta: 0 } ,
+    {pergunta: "Dormir pelo menos 8 horas ajuda em:", opcoes: ["Concentração", "Doenças", "Estresse", "Fraqueza"], resposta: 0 } ,  
+    {pergunta: "O excesso de açúcar pode causar:", opcoes: ["Diabetes", "Mais energia permanente", "Super força", "Crescimento rápido"], resposta: 0 }
+  ],
+
+  meioambiente: [
+    {pergunta: "Qual prática ajuda o meio ambiente?", opcoes: ["Reciclar", "Desperdiçar água"], correta: 0 },
+    {pergunta: "Qual é a cor da lixeira para papel?", opcoes: ["Azul", "Verde", "Vermelho", "Amarelo"], resposta: 0 },
+    {pergunta: "O que significa reciclar?", opcoes: ["Jogar fora", "Reaproveitar materiais", "Queimar lixo", "Enterrar resíduos"], resposta: 1 },
+    {pergunta: "Plantar árvores ajuda a:", opcoes: ["Melhorar o ar", "Poluir mais", "Aumentar o lixo", "Destruir florestas"] , resposta: 0 },
+    {pergunta: "Separar lixo reciclável ajuda a:", opcoes: ["Reduzir poluição", "Aumentar o lixo", "Desperdiçar materiais", "Poluir rios"], resposta: 0 },
+    {pergunta: "Desmatamento excessivo causa:", opcoes: ["Desequilíbrio ambiental", "Mais oxigênio", "Mais chuva controlada", "Melhora do clima"] , resposta: 0 },
+    {pergunta: "O consumo excessivo de produtos descartáveis pode causar:", opcoes: ["Aumento da poluição e acúmulo de lixo", "Melhoria da qualidade do ar", "Redução do lixo nos oceanos", "Equilíbrio ambiental automático"], resposta: 0},
+    {pergunta: "Por que separar o lixo corretamente é uma atitude cidadã?", opcoes: ["Porque facilita a reciclagem e reduz impactos ambientais", "Porque ocupa mais espaço em casa", "Porque aumenta a produção de lixo", "Porque não faz diferença para o meio ambiente"] , resposta: 0 }
+
+]
+};
+
+let materiaAtual = "";
+let indice = 0;
+let pontuacao = 0;
+
+
+function abrirQuizEscolar() {
+  esconderTudo();
+  alterarTitulo("📚 Quiz Escolar");
+   document.getElementById("menuMaterias").style.display = "block";
+}
+
+
+function abrirQuizSaude() {
+  iniciarQuiz("saude");
+  alterarTitulo("💚 Quiz Saúde");
+
+}
+
+function abrirQuizMeioAmbiente() {
+  iniciarQuiz("meioambiente");
+  alterarTitulo("🌿 Quiz Meio Ambiente");
+}
+
+
+function abrirDicas() {
+  esconderTudo();
+  alterarTitulo("✨ Dicas Essenciais da Aivy");
+  document.getElementById("dicas").style.display = "block";
+}
+
+
+function iniciarQuiz(materia) {
+  materiaAtual = materia;
+  indice = 0;
+  pontuacao = 0;
+
+  esconderTudo();
+  document.getElementById("quiz").style.display = "block";
+
+  mostrarPergunta();
+}
+
+function mostrarPergunta() {
+  const quiz = quizzes[materiaAtual];
+  const atual = quiz[indice];
+
+  document.getElementById("pergunta").innerText = atual.pergunta;
+
+  const opcoesDiv = document.getElementById("opcoes");
+  opcoesDiv.innerHTML = "";
+
+  atual.opcoes.forEach((opcao, i) => {
+    const botao = document.createElement("button");
+    botao.innerText = opcao;
+    botao.onclick = () => verificarResposta(i);
+    opcoesDiv.appendChild(botao);
+  });
+}
+
+function verificarResposta(escolhida) {
+  const quiz = quizzes[materiaAtual];
+  const correta = quiz[indice].correta;
+
+  if (escolhida === correta) {
+    pontuacao++;
+    document.getElementById("resultado").innerText = "✅ Resposta certa!";
+  } else {
+    document.getElementById("resultado").innerText =
+      "❌ Errado!";
+  }
+}
+
+function proximaPergunta() {
+  const quiz = quizzes[materiaAtual];
+  indice++;
+
+  document.getElementById("resultado").innerText = "";
+
+  if (indice < quiz.length) {
+    mostrarPergunta();
+  } else {
+    document.getElementById("pergunta").innerText =
+      `🎉 Fim do quiz! Você acertou ${pontuacao} de ${quiz.length}`;
+    document.getElementById("opcoes").innerHTML = "";
+  }
+}
+function perguntaAnterior() {
+  if (indice > 0) {
+    indice--;
+    document.getElementById("resultado").innerText = "";
+    mostrarPergunta();
+  }
+}
+
+function voltarAoMenu() {
+  esconderTudo();
+  alterarTitulo("Quiz Educativos");
+  document.getElementById("menuPrincipal").style.display = "block";
+}
+function alterarTitulo(novoTitulo) {
+  document.getElementById("tituloPagina").innerText = novoTitulo;
+}
+
+
+
+
+function esconderTudo() {
+  document.getElementById("menuPrincipal").style.display = "none";
+  document.getElementById("menuMaterias").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("dicas").style.display = "none";
+}
+</script>
+
+</body>
+</html>
