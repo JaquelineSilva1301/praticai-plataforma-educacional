@@ -3,124 +3,102 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz </title>
+  <title>Quiz</title>
+
   <style>
-  body { 
-    font-family: Arial; 
-    padding: 20px; 
-    max-width: 800px; 
-    margin: auto; 
-    background: lab(93.69% -27.71 2.04); 
-  }
+    body { 
+      font-family: Arial; 
+      padding: 20px; 
+      max-width: 800px; 
+      margin: auto; 
+      background: lab(93.69% -27.71 2.04); 
+    }
 
-  .quiz-box { 
-    background: white; 
-    padding: 20px; 
-    border-radius: 10px; 
-    box-shadow: 0 0 5px #ccc; 
-  }
+    .quiz-box { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 10px; 
+      box-shadow: 0 0 5px #ccc; 
+    }
 
- h1 {
-  text-align: center;
-  margin: 5px 0 5px 0;
-}
+    h1 { text-align: center; }
 
-img {
-  display: block;
-  margin: 0 auto 5px auto;
-}
+    button { 
+      padding: 10px 20px; 
+      margin: 8px; 
+      border: none; 
+      border-radius: 5px; 
+      background: #007BFF; 
+      color: white; 
+      cursor: pointer; 
+    }
 
+    button:hover { background: #0056b3; }
 
-
-  button { 
-    padding: 10px 20px; 
-    margin: 10px 5px; 
-    border: none; 
-    border-radius: 5px; 
-    background: #007BFF; 
-    color: white; 
-    cursor: pointer; 
-  }
-
-  button:hover { 
-    background: #0056b3; 
-  }
-
-  .result { 
-    font-weight: bold; 
-    margin-top: 10px; 
-  }
-</style>
-
+    .result { font-weight: bold; margin-top: 10px; }
+  </style>
 </head>
+
 <body>
-   <div class="quiz-box">
-   <img src="logo.png.jpeg" 
-     style="display:block; margin: 0 auto 15px; max-width: 350px;">
 
-<img src="aivy.jpn.jpg" 
-     style="display:block; margin: 0 auto 15px; max-width: 200px;">
-<h1 id="tituloPagina">Quiz Educativos</h1>
+<div class="quiz-box">
 
-<!-- MENU PRINCIPAL -->
- <div id="menuPrincipal" style="display: block;">
+  <h1 id="tituloPagina">Quiz Educativos</h1>
 
-  <h2>Escolha uma opção:</h2>
+  <!-- MENU PRINCIPAL -->
+  <div id="menuPrincipal">
 
-  <button onclick="abrirQuizEscolar()">📚 Quiz Escolar</button>
-  <button onclick="abrirQuizSaude()">💚 Quiz Saúde</button>
-  <button onclick="abrirQuizMeioAmbiente()">🌿 Quiz Meio Ambiente</button>
-  <button onclick="abrirDicas()">✨ Dicas + FalaSaúde</button>
+    <h2>Escolha uma opção:</h2>
+
+    <button onclick="abrirQuizEscolar()">📚 Quiz Escolar</button>
+    <button onclick="abrirQuizSaude()">💚 Quiz Saúde</button>
+    <button onclick="abrirQuizMeioAmbiente()">🌿 Quiz Meio Ambiente</button>
+    <button onclick="abrirDicas()">✨ Dicas + FalaSaúde</button>
+
+  </div>
+
+  <!-- MENU MATÉRIAS -->
+  <div id="menuMaterias" style="display:none;">
+    <h2>Escolha a matéria:</h2>
+
+    <button onclick="iniciarQuiz('portugues')">Português</button>
+    <button onclick="iniciarQuiz('matematica')">Matemática</button>
+    <button onclick="iniciarQuiz('ingles')">Inglês</button>
+
+    <br><br>
+    <button onclick="voltarAoMenu()">🔙 Voltar</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" style="display:none;">
+    <p id="pergunta"></p>
+    <div id="opcoes"></div>
+    <p class="result" id="resultado"></p>
+
+    <button onclick="proximaPergunta()">Próxima ➡</button>
+
+    <br><br>
+    <button onclick="voltarAoMenu()">🔙 Menu</button>
+  </div>
+
+  <!-- DICAS -->
+  <div id="dicas" style="display:none;">
+    <h2>Dicas da Aivy</h2>
+    <p>💧 Beba água</p>
+    <p>💚 Cuide da saúde</p>
+    <p>🌱 Preserve o meio ambiente</p>
+
+    <a href="https://whatsapp.com/channel/0029VbAYvQzCRs1etnJqCH1F" target="_blank">
+      📲 WhatsApp
+    </a>
+
+    <br><br>
+    <button onclick="voltarAoMenu()">🔙 Voltar</button>
+  </div>
+
 </div>
 
-
-<!-- MENU DE MATÉRIAS (ESCOLAR) -->
-<div id="menuMaterias" style="display: none;">
-  <h2>Escolha a matéria:</h2>
-
-  <button onclick="iniciarQuiz('portugues')">Português</button>
-  <button onclick="iniciarQuiz('matematica')">Matemática</button>
-  <button onclick="iniciarQuiz('ingles')">Inglês</button>
-
-  <br><br>
-  <button onclick="voltarAoMenu()">🔙 Voltar</button>
-</div>
-
-    <!-- ÁREA DO QUIZ -->
-<div id="quiz" class="quiz-conteudo" style="display:none;">
-  <p id="pergunta"></p>
-  <div id="opcoes"></div>
-  <p class="result" id="resultado"></p>
-
-  <button onclick="perguntaAnterior()">⬅ Pergunta Anterior</button>
-  <button onclick="proximaPergunta()">Próxima ➡</button>
-
-  <br><br>
-  <button onclick="voltarAoMenu()">🔙 Voltar ao Menu</button>
-</div>
-
-
-<!-- ÁREA DE DICAS -->
-<div id="dicas" style="display: none;">
-  <h2>✨ Dicas Essenciais da Aivy</h2>
-  <p>💧 Beba pelo menos 2 litros de água por dia.</p>
-  <p>💚 Cuide da sua saúde mental.</p>
-  <p>🌱 Preserve o meio ambiente.</p>
-
-  <p>
-    Quer receber mais dicas e conteúdos exclusivos?
-    Envie <strong>"Oi"</strong> no WhatsApp e fale com a Aivy!
-  </p>
-
-  <a href="SEU_LINK_DO_WHATSAPP_AQUI" target="_blank">
-    📲 Acessar Canal FalaSaúde
-  </a>
-
-  <br><br>
-<button onclick="voltarAoMenu()">🔙 Voltar</button>
-</div>
-
-  <script>
+<script>
 
     const quizzes = {
       portugues: [
@@ -190,32 +168,37 @@ let materiaAtual = "";
 let indice = 0;
 let pontuacao = 0;
 
+function esconderTudo() {
+  document.getElementById("menuPrincipal").style.display = "none";
+  document.getElementById("menuMaterias").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("dicas").style.display = "none";
+}
+
+function alterarTitulo(titulo) {
+  document.getElementById("tituloPagina").innerText = titulo;
+}
 
 function abrirQuizEscolar() {
   esconderTudo();
-  alterarTitulo("📚 Quiz Escolar");
-   document.getElementById("menuMaterias").style.display = "block";
+  document.getElementById("menuMaterias").style.display = "block";
+  alterarTitulo("Quiz Escolar");
 }
-
 
 function abrirQuizSaude() {
   iniciarQuiz("saude");
-  alterarTitulo("💚 Quiz Saúde");
-
+  alterarTitulo("Quiz Saúde");
 }
 
 function abrirQuizMeioAmbiente() {
   iniciarQuiz("meioambiente");
-  alterarTitulo("🌿 Quiz Meio Ambiente");
+  alterarTitulo("Quiz Meio Ambiente");
 }
-
 
 function abrirDicas() {
   esconderTudo();
-  alterarTitulo("✨ Dicas Essenciais da Aivy");
   document.getElementById("dicas").style.display = "block";
 }
-
 
 function iniciarQuiz(materia) {
   materiaAtual = materia;
@@ -238,70 +221,43 @@ function mostrarPergunta() {
   opcoesDiv.innerHTML = "";
 
   atual.opcoes.forEach((opcao, i) => {
-    const botao = document.createElement("button");
-    botao.innerText = opcao;
-    botao.onclick = () => verificarResposta(i);
-    opcoesDiv.appendChild(botao);
+    const btn = document.createElement("button");
+    btn.innerText = opcao;
+
+    btn.onclick = () => {
+      if (i === atual.correta) {
+        pontuacao++;
+        document.getElementById("resultado").innerText = "✅ Certo!";
+      } else {
+        document.getElementById("resultado").innerText = "❌ Errado!";
+      }
+    };
+
+    opcoesDiv.appendChild(btn);
   });
 }
 
-function verificarResposta(escolhida) {
-  const quiz = quizzes[materiaAtual];
-  const correta = quiz[indice].correta;
-
-  if (escolhida === correta) {
-    pontuacao++;
-    document.getElementById("resultado").innerText = "✅ Resposta certa!";
-  } else {
-    document.getElementById("resultado").innerText =
-      "❌ Errado!";
-  }
-}
-
 function proximaPergunta() {
-  const quiz = quizzes[materiaAtual];
   indice++;
-
   document.getElementById("resultado").innerText = "";
+
+  const quiz = quizzes[materiaAtual];
 
   if (indice < quiz.length) {
     mostrarPergunta();
   } else {
     document.getElementById("pergunta").innerText =
-      `🎉 Fim do quiz! Você acertou ${pontuacao} de ${quiz.length}`;
+      `🎉 Fim! Você acertou ${pontuacao} de ${quiz.length}`;
     document.getElementById("opcoes").innerHTML = "";
-  
-    // ESCONDER BOTÕES
-    document.getElementById("btnProxima").style.display = "none";
-    document.getElementById("btnAnterior").style.display = "none";
-  }
-}
-function perguntaAnterior() {
-  if (indice > 0) {
-    indice--;
-    document.getElementById("resultado").innerText = "";
-    mostrarPergunta();
   }
 }
 
 function voltarAoMenu() {
   esconderTudo();
-  alterarTitulo("Quiz Educativos");
   document.getElementById("menuPrincipal").style.display = "block";
-}
-function alterarTitulo(novoTitulo) {
-  document.getElementById("tituloPagina").innerText = novoTitulo;
+  alterarTitulo("Quiz Educativos");
 }
 
-
-
-
-function esconderTudo() {
-  document.getElementById("menuPrincipal").style.display = "none";
-  document.getElementById("menuMaterias").style.display = "none";
-  document.getElementById("quiz").style.display = "none";
-  document.getElementById("dicas").style.display = "none";
-}
 </script>
 
 </body>
